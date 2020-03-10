@@ -29,6 +29,8 @@ bool PriorityQueue::full() const {
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
+	for(TaskItem* node : heap)
+		
 }
 
 // PURPOSE: Returns the max element of the priority queue without removing it
