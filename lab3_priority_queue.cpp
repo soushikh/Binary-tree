@@ -5,6 +5,7 @@ using namespace std;
 // PURPOSE: Parametric constructor 
 // initializes heap to an array of (n_capacity + 1) elements
 PriorityQueue::PriorityQueue(unsigned int n_capacity) {
+	heap = new TaskItem*[n_capacity+1];
 }
 
 // PURPOSE: Explicit destructor of the class PriorityQueue
