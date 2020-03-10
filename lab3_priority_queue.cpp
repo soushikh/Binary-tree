@@ -24,7 +24,7 @@ unsigned int PriorityQueue::get_size() const {
 
 // PURPOSE: Returns true if the priority queue is empty; false, otherwise
 bool PriorityQueue::empty() const {
-	return !(size);
+	return !size;
 }
 
 // PURPOSE: Returns true if the priority queue is full; false, otherwise
@@ -34,16 +34,15 @@ bool PriorityQueue::full() const {
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
-	for(int i = 1; i < n_capacity + 1; i++)
-	{
-		cout<<heap[i]->priority<<" "<<heap[i]->description<<endl;
-	}
 }
 
 // PURPOSE: Returns the max element of the priority queue without removing it
 // if the priority queue is empty, it returns (-1, "N/A")
 PriorityQueue::TaskItem PriorityQueue::max() const {
+	if(size == 0)
 	return TaskItem(-1, "NULL");
+	else
+	return *heap[1];
 }
 
 // PURPOSE: Inserts the given value into the priority queue
@@ -51,18 +50,6 @@ PriorityQueue::TaskItem PriorityQueue::max() const {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::enqueue( TaskItem val ) {
-	TaskItem* node = new TaskItem(val);
-	int index = size+1;
-	int root = floor(index/2);
-	heap[index] = node;
-	while(heap[root]->priority < node->priority)
-	{
-		TaskItem* temp = heap[root];
-		heap[root] = heap[index];
-		heap[index] = temp;
-		index = root;
-		root = floor(index/2);
-	}
 	return false;
 }
 
@@ -71,5 +58,29 @@ bool PriorityQueue::enqueue( TaskItem val ) {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::dequeue() {
+	 int i = 1;
+	int storeVal;
+	*heap[i] = *heap[n_capacity];
+	delete heap[n_capacity];
+	
+	while(*heap[i] < *heap[2*i] || *heap[i] < *heap[2*i + 1])
+	{
+		if(*heap[2*i] > *heap[2*i+1])
+		{
+			storeVal = *heap[i];
+			*heap[i] = *heap[2*i];
+			*heap[2*i] = storeVal;
+			i *=2;
+		}
+		else 
+		{
+			storeVal = *heap[i];
+			*heap[i] = *heap[2*i+1];
+			*heap[2*i+1] = storeVal;
+			i *=2;
+			i ++;
+		}
+		
+		
 	return false;
 }
