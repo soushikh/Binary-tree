@@ -10,27 +10,30 @@ PriorityQueue::PriorityQueue(unsigned int n_capacity) {
 
 // PURPOSE: Explicit destructor of the class PriorityQueue
 PriorityQueue::~PriorityQueue() {
+	for(int i = 1; i < n_capacity + 1; i++)
+	{
+		delete heap[i];
+	}
+	delete heap;
 }
 
 // PURPOSE: Returns the number of elements in the priority queue
 unsigned int PriorityQueue::get_size() const {
-	return size;
+	return 0;
 }
 
 // PURPOSE: Returns true if the priority queue is empty; false, otherwise
 bool PriorityQueue::empty() const {
-	return (!size);
+	return false;
 }
 
 // PURPOSE: Returns true if the priority queue is full; false, otherwise
 bool PriorityQueue::full() const {
-	return (size == n_capacity);
+	return false;
 }
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
-	for(TaskItem* node : heap)
-		
 }
 
 // PURPOSE: Returns the max element of the priority queue without removing it
