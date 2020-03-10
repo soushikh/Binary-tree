@@ -34,6 +34,10 @@ bool PriorityQueue::full() const {
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
+	for(int i = 1; i < n_capacity + 1; i++)
+	{
+		cout<<heap[i]->proiority<<" "<<heap[i]->description<<endl;
+	}
 }
 
 // PURPOSE: Returns the max element of the priority queue without removing it
