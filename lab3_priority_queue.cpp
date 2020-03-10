@@ -24,7 +24,7 @@ bool PriorityQueue::empty() const {
 
 // PURPOSE: Returns true if the priority queue is full; false, otherwise
 bool PriorityQueue::full() const {
-	return false;
+	return (size == n_capacity);
 }
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
