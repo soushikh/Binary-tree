@@ -24,7 +24,7 @@ unsigned int PriorityQueue::get_size() const {
 
 // PURPOSE: Returns true if the priority queue is empty; false, otherwise
 bool PriorityQueue::empty() const {
-	return !size;
+	return !(size);
 }
 
 // PURPOSE: Returns true if the priority queue is full; false, otherwise
@@ -36,7 +36,7 @@ bool PriorityQueue::full() const {
 void PriorityQueue::print() const {
 	for(int i = 1; i < n_capacity + 1; i++)
 	{
-		cout<<heap[i]->proiority<<" "<<heap[i]->description<<endl;
+		cout<<heap[i]->priority<<" "<<heap[i]->description<<endl;
 	}
 }
 
@@ -51,6 +51,18 @@ PriorityQueue::TaskItem PriorityQueue::max() const {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::enqueue( TaskItem val ) {
+	TaskItem* node = new TaskItem(val);
+	int index = size+1;
+	int root = floor(index/2);
+	heap[index] = node;
+	while(heap[root]->priority < node->priority)
+	{
+		TaskItem* temp = heap[root];
+		heap[root] = heap[index];
+		heap[index] = temp;
+		index = root;
+		root = floor(index/2);
+	}
 	return false;
 }
 
