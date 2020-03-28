@@ -58,8 +58,8 @@ bool PriorityQueue::enqueue( TaskItem val ) {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::dequeue() {
-	 int i = 1;
-	int storeVal;
+	int i = 1;
+	taskItem* storeVal;
 	*heap[i] = *heap[n_capacity];
 	delete heap[n_capacity];
 	
