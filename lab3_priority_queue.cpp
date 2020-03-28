@@ -59,27 +59,22 @@ bool PriorityQueue::enqueue( TaskItem val ) {
 // priority queue does not change in capacity
 bool PriorityQueue::dequeue() {
 	int i = 1;
+	int child = 1;
 	taskItem* storeVal;
 	*heap[i] = *heap[n_capacity];
 	delete heap[n_capacity];
 	
-	while(*heap[i] < *heap[2*i] || *heap[i] < *heap[2*i + 1])
+	while(heap[i]->priority < heap[2*i]->priority || heap[i]->priority < heap[2*i + 1]->priority)
 	{
-		if(*heap[2*i] > *heap[2*i+1])
-		{
-			storeVal = *heap[i];
-			*heap[i] = *heap[2*i];
-			*heap[2*i] = storeVal;
-			i *=2;
-		}
+		if(heap[2*i]->priority > *heap[2*i+1]->priority)
+			child = 2*i;
 		else 
-		{
-			storeVal = *heap[i];
-			*heap[i] = *heap[2*i+1];
-			*heap[2*i+1] = storeVal;
-			i *=2;
-			i ++;
-		}
+			child = 2*i+1;
+		
+		storeVal = heap[i];
+		*heap[i] = *heap[child];
+		*heap[child] = storeVal;
+		i = child;
 		
 		
 	return false;
