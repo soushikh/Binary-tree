@@ -15,6 +15,7 @@ PriorityQueue::~PriorityQueue() {
 		delete heap[i];
 	}
 	delete heap;
+	heap = NULL;
 }
 
 // PURPOSE: Returns the number of elements in the priority queue
@@ -58,13 +59,20 @@ bool PriorityQueue::enqueue( TaskItem val ) {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::dequeue() {
+	if(empty())
+		return false();
+	if(size == 1)
+	{
+		delete heap[n_capacity];
+	}
 	int i = 1;
 	int child = 1;
 	taskItem* storeVal;
 	*heap[i] = *heap[n_capacity];
 	delete heap[n_capacity];
 	
-	while(heap[i]->priority < heap[2*i]->priority || heap[i]->priority < heap[2*i + 1]->priority)
+	while( 2*i+1<n_capacity &&
+		(heap[i]->priority < heap[2*i]->priority || heap[i]->priority < heap[2*i + 1]->priority))
 	{
 		if(heap[2*i]->priority > *heap[2*i+1]->priority)
 			child = 2*i;
@@ -75,7 +83,6 @@ bool PriorityQueue::dequeue() {
 		*heap[i] = *heap[child];
 		*heap[child] = *storeVal;
 		i = child;
-		
-		
-	return false;
+	}		
+	return true;
 }
