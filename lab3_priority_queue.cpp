@@ -73,7 +73,7 @@ bool PriorityQueue::dequeue() {
 		
 		storeVal = heap[i];
 		*heap[i] = *heap[child];
-		*heap[child] = storeVal;
+		*heap[child] = *storeVal;
 		i = child;
 		
 		
