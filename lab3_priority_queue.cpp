@@ -51,6 +51,12 @@ PriorityQueue::TaskItem PriorityQueue::max() const {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::enqueue( TaskItem val ) {
+	int i = size+1;
+	Heap[size+1] = new TaskItem(val);
+	while()
+	{
+	
+	}
 	return false;
 }
 
