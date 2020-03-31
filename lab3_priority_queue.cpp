@@ -35,15 +35,19 @@ bool PriorityQueue::full() const {
 
 // PURPOSE: Prints the contents of the priority queue; format not specified
 void PriorityQueue::print() const {
+	for(int i=1; i<=size; i++)
+	{
+		cout<<"Priority: "<<heap[i]->priorty<<"\t description: "<<heap[i]->describtion<<endl;
+	}
 }
 
 // PURPOSE: Returns the max element of the priority queue without removing it
 // if the priority queue is empty, it returns (-1, "N/A")
 PriorityQueue::TaskItem PriorityQueue::max() const {
 	if(size == 0)
-	return TaskItem(-1, "NULL");
+		return TaskItem(-1, "NULL");
 	else
-	return *heap[1];
+		return *heap[1];
 }
 
 // PURPOSE: Inserts the given value into the priority queue
