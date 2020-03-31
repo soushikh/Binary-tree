@@ -52,12 +52,15 @@ PriorityQueue::TaskItem PriorityQueue::max() const {
 // priority queue does not change in capacity
 bool PriorityQueue::enqueue( TaskItem val ) {
 	int i = size+1;
-	Heap[size+1] = new TaskItem(val);
-	while()
+	heap[size+1] = new TaskItem(val);
+	while(i>1 && heap[i]->priority > heap[floor(i/2)]->priority)
 	{
-	
+		TaskItem* temp = heap[i];
+		heap[i] = heap[floor(i/2)];
+		heap[floor(i/2)] = temp;
 	}
-	return false;
+	size++;
+	return true;
 }
 
 // PURPOSE: Removes the top element with the maximum priority
@@ -89,6 +92,7 @@ bool PriorityQueue::dequeue() {
 		*heap[i] = *heap[child];
 		*heap[child] = *storeVal;
 		i = child;
-	}		
+	}	
+	size--;
 	return true;
 }
