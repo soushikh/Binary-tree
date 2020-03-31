@@ -51,8 +51,10 @@ PriorityQueue::TaskItem PriorityQueue::max() const {
 // returns true if successful and false otherwise
 // priority queue does not change in capacity
 bool PriorityQueue::enqueue( TaskItem val ) {
+	if (size == n_capacity)
+		return false;
 	int i = size+1;
-	heap[size+1] = new TaskItem(val);
+	heap[i] = new TaskItem(val);
 	while(i>1 && heap[i]->priority > heap[floor(i/2)]->priority)
 	{
 		TaskItem* temp = heap[i];
@@ -72,16 +74,19 @@ bool PriorityQueue::dequeue() {
 		return false();
 	if(size == 1)
 	{
-		delete heap[n_capacity];
+		delete heap[1];
+		heap[1] = NULL;
+		size--;
+		return true;
 	}
 	int i = 1;
 	int child = 1;
 	taskItem* storeVal;
-	*heap[i] = *heap[n_capacity];
-	delete heap[n_capacity];
+	delete heap[i];
+	heap[i] = heap[size+1];
+	heap[size+1] = NULL;
 	
-	while( 2*i+1<n_capacity &&
-		(heap[i]->priority < heap[2*i]->priority || heap[i]->priority < heap[2*i + 1]->priority))
+	while( 2*i < n_capacity && (heap[i]->priority < heap[2*i]->priority || heap[i]->priority < heap[2*i + 1]->priority))
 	{
 		if(heap[2*i]->priority > *heap[2*i+1]->priority)
 			child = 2*i;
