@@ -2,6 +2,7 @@
 #define LAB3_BINARY_SEARCH_TREE_HPP
 
 #include <string>
+#include <iostream>
 
 using namespace std;
 
