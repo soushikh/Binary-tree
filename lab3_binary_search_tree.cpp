@@ -136,6 +136,12 @@ void BinarySearchTree::print() const {
 // PURPOSE: Returns true if a node with the value val exists in the tree	//Soushi
 // otherwise, returns false
 bool BinarySearchTree::exists( BinarySearchTree::TaskItem val ) const {
+	TaskItem* cur = root;
+	while (cur)
+	{
+		if (cur->priority == val)
+			return true;
+	}
 	return false;
 }
 
