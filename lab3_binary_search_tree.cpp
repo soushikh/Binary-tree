@@ -5,15 +5,80 @@ using namespace std;
 
 // PURPOSE: Default/empty constructor
 BinarySearchTree::BinarySearchTree() {
+	root = NULL;
+	size = 0;
 }
+
+//Purpose: Delete node in tree
+void delNodes(TaskItem* node) {
+if (node == NULL)
+	return;
+else
+{
+	delNodes(node->right);
+	delNodes(node->left);
+}
+delete node;
+node = NULL;
+}
+
+
+int maxVal(TaskItem* node) {
+	
+int max = node->priority;	
+	
+if (node == NULL)
+	return;
+else
+{
+	if(node->priority > max)
+	max = node->priority;
+		
+	maxVal(node->right);
+	maxVal(node->left);
+}
+return max;
+}
+
+
+int minVal(TaskItem* node) {
+	
+int min = node->priority;	
+	
+if (node == NULL)
+	return;
+else
+{
+	if(node->priority < min)
+	min = node->priority;
+		
+	minVal(node->right);
+	minVal(node->left);
+}
+delete node;
+node = NULL;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 // PURPOSE: Explicit destructor of the class BinarySearchTree
 BinarySearchTree::~BinarySearchTree() {
+delNodes(root);
 }
 
 // PURPOSE: Returns the number of nodes in the tree
 unsigned int BinarySearchTree::get_size() const {
-	return 0;
+	return size;
 }
 
 // PURPOSE: Returns the maximum value of a node in the tree
