@@ -9,7 +9,7 @@ BinarySearchTree::BinarySearchTree() {
 	size = 0;
 }
 
-//Purpose: Delete node in tree
+//Purpose: Delete node in tree (added helper function)
 void delNodes(TaskItem* node) {
 if (node == NULL)
 	return;
@@ -23,17 +23,30 @@ node = NULL;
 }
 
 
-int maxVal(TaskItem* node) {
-	
-int max = node->priority;	
-	
+void maxVal(TaskItem* node) {       //maybe use this for the max node function
+int max = 0;
 if (node == NULL)
 	return;
 else
 {
 	if(node->priority > max)
 	max = node->priority;
-		
+	
+	maxVal(node->right);
+	maxVal(node->left);
+}
+return max;
+}
+
+void minVal(TaskItem* node) {       //maybe use this for the max node function
+if (min == 
+if (node == NULL)
+	return;
+else
+{
+	if(node->priority > max)
+	max = node->priority;
+	
 	maxVal(node->right);
 	maxVal(node->left);
 }
@@ -41,23 +54,6 @@ return max;
 }
 
 
-int minVal(TaskItem* node) {
-	
-int min = node->priority;	
-	
-if (node == NULL)
-	return;
-else
-{
-	if(node->priority < min)
-	min = node->priority;
-		
-	minVal(node->right);
-	minVal(node->left);
-}
-delete node;
-node = NULL;
-}
 
 
 
@@ -84,13 +80,48 @@ unsigned int BinarySearchTree::get_size() const {
 // PURPOSE: Returns the maximum value of a node in the tree    //Cole
 // if the tree is empty, it returns (-1, "N/A")
 BinarySearchTree::TaskItem BinarySearchTree::max() const {
-	return BinarySearchTree::TaskItem(-1, "N/A");
+	
+if (size == 0)
+return BinarySearchTree::TaskItem(-1, "N/A");
 }
-
+else if (size == 1)
+return node->priority;
+else
+{	
+Taskitem* node = root;
+	while(node->right != NULL || node->left !=NULL)
+	{
+		if(node->right != NULL)
+		node = node->right;
+		else 
+		node = node->left;
+	}
+		return node->priority;
+}
+}
+	
+	
 // PURPOSE: Returns the minimum value of a node in the tree    //Cole
 // if the tree is empty, it returns (-1, "N/A")
 BinarySearchTree::TaskItem BinarySearchTree::min() const {
-	return BinarySearchTree::TaskItem(-1, "N/A");
+
+if (size == 0)
+return BinarySearchTree::TaskItem(-1, "N/A");
+}
+else if (size == 1)
+return node->priority;
+else
+{	
+Taskitem* node = root;
+	while(node->right != NULL || node->left !=NULL)
+	{
+		if(node->left != NULL)
+		node = node->left;
+		else 
+		node = node->right;
+	}
+	return node->priority;
+}
 }
 
 // PURPOSE: Returns the tree height					//Cole
