@@ -24,7 +24,7 @@ node = NULL;
 
 
 // PURPOSE: Explicit destructor of the class BinarySearchTree   //Cole
-BinarySearchTree::~BinarySearchTree() {
+BinarySearchTree::~BinarySearchTree() {  
 delNodes(root);
 }
 
