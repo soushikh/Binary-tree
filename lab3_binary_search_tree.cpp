@@ -38,18 +38,14 @@ unsigned int BinarySearchTree::get_size() const {
 BinarySearchTree::TaskItem BinarySearchTree::max() const {
 	
 if (size == 0)
-return BinarySearchTree::TaskItem(-1, "N/A");
-}
-else if (size == 1)
-return node->priority;
-else
-{	
+	return BinarySearchTree::TaskItem(-1, "N/A");
+	
 TaskItem* node = root;
 	while(node->right!= NULL)
 	{
 		node = node->right;
 	}
-		return node->priority;
+		return *node;
 }
 }
 	
@@ -59,19 +55,14 @@ TaskItem* node = root;
 BinarySearchTree::TaskItem BinarySearchTree::min() const {
 
 if (size == 0)
-return BinarySearchTree::TaskItem(-1, "N/A");
-}
-else if (size == 1)
-return node->priority;
-else
-{	
+	return BinarySearchTree::TaskItem(-1, "N/A");
+	
 TaskItem* node = root;
 	while(node->left!=NULL)
 	{
-		if(node->left != NULL)
 		node = node->left;
 	}
-	return node->priority;
+	return *node;
 }
 }
 
@@ -80,10 +71,10 @@ TaskItem* node = root;
 unsigned int findHeight(TaskItem *node)
 {
 	if(node == NULL)
-	return 0;
+		return 0;
 	else
 	{
-	return 1 + max(findHeight(node->left), findHeight(node->right));
+		return 1 + max(findHeight(node->left), findHeight(node->right));
 	}
 }
 
@@ -152,16 +143,17 @@ int BinarySearchTree::get_node_depth( BinarySearchTree::TaskItem* n ) const {
 // PURPOSE: Inserts the value val into the tree if it is unique                 //Soushi
 // returns true if successful; returns false if val already exists
 bool BinarySearchTree::insert( BinarySearchTree::TaskItem val ) {
-    	TaskItem* cur = heap;
-	while(cur && (cur->right || cur->left))
+    	TaskItem** cur = &root;
+	while(*cur)
 	{
-		if(cur->priority == val.priority)
+		if(**cur->priority == val.priority)
 			return false;
-		else if(val.priority < cur->priority)
-			cur = cur->left;
+		else if(val.priority < **cur->priority)
+			cur = (*cur)->left;
 		else 
-			cur = cur->right;
+			cur = (*cur)->right;
 	}
+	*cur = new TaskItem(val);
 	return true;
 }
 
