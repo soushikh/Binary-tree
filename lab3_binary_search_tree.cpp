@@ -23,50 +23,6 @@ node = NULL;
 }
 
 
-void maxVal(TaskItem* node) {       //maybe use this for the max node function
-int max = 0;
-if (node == NULL)
-	return;
-else
-{
-	if(node->priority > max)
-	max = node->priority;
-	
-	maxVal(node->right);
-	maxVal(node->left);
-}
-return max;
-}
-
-void minVal(TaskItem* node) {       //maybe use this for the max node function
-if (min == 
-if (node == NULL)
-	return;
-else
-{
-	if(node->priority > max)
-	max = node->priority;
-	
-	maxVal(node->right);
-	maxVal(node->left);
-}
-return max;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // PURPOSE: Explicit destructor of the class BinarySearchTree   //Cole
 BinarySearchTree::~BinarySearchTree() {
 delNodes(root);
@@ -88,13 +44,10 @@ else if (size == 1)
 return node->priority;
 else
 {	
-Taskitem* node = root;
-	while(node->right != NULL || node->left !=NULL)
+TaskItem* node = root;
+	while(node->right!= NULL)
 	{
-		if(node->right != NULL)
 		node = node->right;
-		else 
-		node = node->left;
 	}
 		return node->priority;
 }
@@ -112,49 +65,70 @@ else if (size == 1)
 return node->priority;
 else
 {	
-Taskitem* node = root;
-	while(node->right != NULL || node->left !=NULL)
+TaskItem* node = root;
+	while(node->left!=NULL)
 	{
 		if(node->left != NULL)
 		node = node->left;
-		else 
-		node = node->right;
 	}
 	return node->priority;
 }
 }
 
+//PURPOSE: Determines the tree height
+
+unsigned int findHeight(TaskItem *node)
+{
+	if(node == NULL)
+	return 0;
+	else
+	{
+	return 1 + max(findHeight(node->left), findHeight(node->right));
+	}
+}
+
 // PURPOSE: Returns the tree height					//Cole
 unsigned int BinarySearchTree::height() const {
-	return 0;
+	if (size == 0 || size == 1)
+	return 1;
+	
+	else
+	findHeight(root);
 }
+
+void printContents(TaskItem* node)
+{
+	
+	if(node == NULL)
+	cout << "";
+	else
+	{
+		cout << node->priority << endl; 
+		printContents(node->left);
+		printContents(node->right);
+	}
+}
+
 
 // PURPOSE: Prints the contents of the tree; format not specified      //Cole
 void BinarySearchTree::print() const {
+	printContents(root);
 }
 
 // PURPOSE: Returns true if a node with the value val exists in the tree	//Soushi
 // otherwise, returns false
 bool BinarySearchTree::exists( BinarySearchTree::TaskItem val ) const {
-	TaskItem* cur = root;
-	while (cur)
-	{
-		if (cur->priority == val)
-			return true;
-	}
 	return false;
 }
 
 // PURPOSE: Optional helper function that returns a pointer to the root node     //Soushi
 BinarySearchTree::TaskItem* BinarySearchTree::get_root_node() {
-    return root;
+    return NULL;
 }
 
 // PURPOSE: Optional helper function that returns the root node pointer address       //Soushi  
 BinarySearchTree::TaskItem** BinarySearchTree::get_root_node_address() {
-    	if(size == 0)
-		return NULL;
-	return &root;
+    return NULL;
 }
 
 // PURPOSE: Optional helper function that gets the maximum depth for a given node     //Soushi
@@ -168,8 +142,63 @@ bool BinarySearchTree::insert( BinarySearchTree::TaskItem val ) {
     return false;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // PURPOSE: Removes the node with the value val from the tree		//Cole
 // returns true if successful; returns false otherwise
-bool BinarySearchTree::remove( BinarySearchTree::TaskItem val ) {
-    return false;
+bool BinarySearchTree::remove( BinarySearchTree::TaskItem val, TaskItem* node) {
+	
+TaskItem* temp;
+ 
+if(node->left->priority == val||node->right->priority == val)
+{
+	//Case 1: Node to be deleted is a leaf node
+	if(node->left->left == NULL && node->left->right == NULL)
+	{
+		delete node->left;
+		node->left = NULL;
+	}
+	else if(node->right->left == NULL && node->right->right == NULL)
+	{
+		delete node->right;
+		node->right = NULL;
+	}
+	
+	//Case 2: Node to be deleted has one child
+	else if(node->left->left == NULL && node->left->right != NULL)
+	{
+		temp = node->left->right;
+		delete node->left;
+		node->left = temp;
+	}
+	else if (node->left->left != NULL && node->left->right == NULL
+}
+
+	
+	
+	
+	
+if(node == NULL)
+return;
+else
+{
+	remove(val, node->left);
+	remove(val, node->right);
+}
+
+	
+
+	
 }
