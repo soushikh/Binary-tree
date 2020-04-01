@@ -183,7 +183,26 @@ if(node->left->priority == val||node->right->priority == val)
 		delete node->left;
 		node->left = temp;
 	}
-	else if (node->left->left != NULL && node->left->right == NULL
+	else if (node->left->left != NULL && node->left->right == NULL)
+	{
+		temp = node->left->left;
+		delete node->left;
+		node->left = temp;
+	}
+	else if (node->right->left == NULL && node->right->right != NULL)
+	{
+		temp = node->right->right;
+		delete node->right;
+		node->right = temp;
+	}
+	else if (node->right->left != NULL && node->right->right == NULL)
+	{
+		temp = node->right->left;
+		delete node->right;
+		node->right = temp;
+	}
+	
+	//Case 3: Node to be deleted has two children
 }
 
 	
