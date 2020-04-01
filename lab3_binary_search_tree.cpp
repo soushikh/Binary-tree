@@ -37,20 +37,20 @@ unsigned int BinarySearchTree::get_size() const {
 // if the tree is empty, it returns (-1, "N/A")
 BinarySearchTree::TaskItem BinarySearchTree::max() const {
 	
-if (size == 0)
-return BinarySearchTree::TaskItem(-1, "N/A");
-}
-else if (size == 1)
-return node->priority;
-else
-{	
-TaskItem* node = root;
-	while(node->right!= NULL)
-	{
+	if (size == 0)
+	return BinarySearchTree::TaskItem(-1, "N/A");
+
+	else if (size == 1)
+	return node->priority;
+	else
+	{	
+	TaskItem* node = root;
+		while(node->right!= NULL)
+		{
 		node = node->right;
+		}
+	return node->priority;
 	}
-		return node->priority;
-}
 }
 	
 	
@@ -58,25 +58,24 @@ TaskItem* node = root;
 // if the tree is empty, it returns (-1, "N/A")
 BinarySearchTree::TaskItem BinarySearchTree::min() const {
 
-if (size == 0)
-return BinarySearchTree::TaskItem(-1, "N/A");
-}
-else if (size == 1)
-return node->priority;
-else
-{	
-TaskItem* node = root;
-	while(node->left!=NULL)
-	{
+	if (size == 0)
+	return BinarySearchTree::TaskItem(-1, "N/A");
+
+	else if (size == 1)
+	return node->priority;
+	else
+	{	
+	TaskItem* node = root;
+		while(node->left!=NULL)
+		{
 		if(node->left != NULL)
 		node = node->left;
-	}
+		}
 	return node->priority;
-}
+	}
 }
 
 //PURPOSE: Determines the tree height
-
 unsigned int findHeight(TaskItem *node)
 {
 	if(node == NULL)
@@ -96,6 +95,7 @@ unsigned int BinarySearchTree::height() const {
 	findHeight(root);
 }
 
+//PURPOSE: Prints contents (added helper function)
 void printContents(TaskItem* node)
 {
 	
@@ -118,30 +118,17 @@ void BinarySearchTree::print() const {
 // PURPOSE: Returns true if a node with the value val exists in the tree	//Soushi
 // otherwise, returns false
 bool BinarySearchTree::exists( BinarySearchTree::TaskItem val ) const {
-	TaskItem* cur = heap;
-	while(cur)
-	{
-		if(cur->priority == val.priority)
-			return true;
-		else if(val.priority < cur->priority)
-			cur = cur->left;
-		else 
-			cur = cur->right;
-	}
 	return false;
 }
 
 // PURPOSE: Optional helper function that returns a pointer to the root node     //Soushi
 BinarySearchTree::TaskItem* BinarySearchTree::get_root_node() {
-    return root;
+    return NULL;
 }
 
 // PURPOSE: Optional helper function that returns the root node pointer address       //Soushi  
 BinarySearchTree::TaskItem** BinarySearchTree::get_root_node_address() {
-    	if(size == 0)
-		return NULL;
-	else
-		return &root;
+    return NULL;
 }
 
 // PURPOSE: Optional helper function that gets the maximum depth for a given node     //Soushi
@@ -156,81 +143,130 @@ bool BinarySearchTree::insert( BinarySearchTree::TaskItem val ) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // PURPOSE: Removes the node with the value val from the tree		//Cole
 // returns true if successful; returns false otherwise
-bool BinarySearchTree::remove( BinarySearchTree::TaskItem val, TaskItem* node) {
+bool BinarySearchTree::remove( BinarySearchTree::TaskItem val) {
 	
-TaskItem* temp;
- 
-if(node->left->priority == val||node->right->priority == val)
+TaskItem* temp1;
+TaskItem* temp2;
+TaskItem* temp3
+TaskItem*node = root;
+
+int storVal;
+string storDes;
+	
+if(exists(val));
 {
+	if(size==1)
+	{
+	delete node;
+	return true;
+	}
+	
+	else if (node->left != NULL && node->right == NULL)
+	{
+		temp1 = node->left;
+		delete node;
+		root = temp1;
+		return true;
+	}
+	else if (node->left == NULL && node->right != NULL)
+	{
+		temp1 = node->right;
+		delete node;
+		root = temp1;
+		return true;
+	}
+	
+	
+	while(node->left->priority != val.priority||node->right->priority != val.priority)
+	{
+		if(node->priority < val.priority)
+		node = node->right;
+		else
+		node = node->left;
+	}
+ 
+
 	//Case 1: Node to be deleted is a leaf node
 	if(node->left->left == NULL && node->left->right == NULL)
 	{
 		delete node->left;
 		node->left = NULL;
+		return true;
 	}
 	else if(node->right->left == NULL && node->right->right == NULL)
 	{
 		delete node->right;
 		node->right = NULL;
+		return true;
 	}
 	
 	//Case 2: Node to be deleted has one child
 	else if(node->left->left == NULL && node->left->right != NULL)
 	{
-		temp = node->left->right;
+		temp2 = node->left->right;
 		delete node->left;
-		node->left = temp;
+		node->left = temp2;
+		return true;
 	}
 	else if (node->left->left != NULL && node->left->right == NULL)
 	{
-		temp = node->left->left;
+		temp2 = node->left->left;
 		delete node->left;
-		node->left = temp;
+		node->left = temp2;
+		return true;
 	}
 	else if (node->right->left == NULL && node->right->right != NULL)
 	{
-		temp = node->right->right;
+		temp2 = node->right->right;
 		delete node->right;
-		node->right = temp;
+		node->right = temp2;
+		return true;
 	}
 	else if (node->right->left != NULL && node->right->right == NULL)
 	{
-		temp = node->right->left;
+		temp2 = node->right->left;
 		delete node->right;
-		node->right = temp;
+		node->right = temp2;
+		return true;
 	}
 	
 	//Case 3: Node to be deleted has two children
+	else
+	{
+		if(node->priority < val.priority)
+		{
+		node = node->right;
+		temp3 = node;
+		}
+		else
+		{
+		node = node->left;
+		temp3 = node;
+		}
+		
+		temp3 = temp3->right;
+		
+		while(temp3->left != NULL)
+		temp3 = temp3->left;
+		
+		storVal = temp3->priority;
+		storDes = temp3->description;
+		
+		remove(*temp3);
+		node->priority = storVal;
+		node->description = storDes;
+		return true;
+	}
+}
+return false;
 }
 
 	
 	
 	
-	
-if(node == NULL)
-return;
-else
-{
-	remove(val, node->left);
-	remove(val, node->right);
-}
 
-	
 
 	
 }
