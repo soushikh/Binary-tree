@@ -19,7 +19,7 @@ else
 	delNodes(node->left);
 }
 delete node;
-node = NULL;
+node = NULL;   
 }
 
 
